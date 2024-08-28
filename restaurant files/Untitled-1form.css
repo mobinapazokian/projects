@@ -1,0 +1,97 @@
+*{
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+
+img{
+  border-radius: 10px;
+}
+
+.contentbox{
+  width: 60vh;
+  height: 150vh;
+  background-color: rgb(91, 91, 91);
+  border-radius: 10px;
+  position: absolute;
+  left: 70%;
+  display: none;
+  transition: 0.55s ease-in-out;
+  z-index: 999;
+  overflow-y: scroll
+}
+
+.contentshow{
+  display: block;
+}
+
+p, h5{
+  display: inline-block;
+}
+
+.main{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.remove{
+  display: none;
+}
+
+.counter{
+  display: flex;
+  gap: 1rem;
+}
+
+
+span{
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.k.one{
+  background-color: black;
+}
+
+.k.two{
+  background-color: red;
+}
+
+.k.three{
+  background-color: green;
+}
+
+
+
+#ii{
+  text-align: center;
+  width: 10px;
+  color: aliceblue;
+  padding: 2px;
+}
+
+.none{
+  display: none;
+}
+
+.s .l{
+  cursor: pointer;
+  text-decoration-line: underline; 
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+.menu{width: 100%; height: 10vh;}
+
+.menu nav{/* From https://css.glass */
+  background: rgba(255, 255, 255, 0);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.9px);
+  -webkit-backdrop-filter: blur(5.9px);
+  border: 1px solid rgba(255, 255, 255, 0.3);}
+
+.menu .navbar-nav{margin-left: 40%;}
+
+#sec1 h1{font-weight: 700;}
+
+#div1-icons img{width:40px;}
+
+.grid{width: 10%;}
+
+#sec1{height:auto;} 
+
+#sec2 h1{font-weight: 700;}
+
+#grid1{display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,330px));
+place-content: center; place-items: center; gap: 2rem;
+text-align: center; height: auto;}
+
+#grid1 #pic{padding: 50px;
+border-radius: 10px; -webkit-box-shadow: 0px 1px 15px 0px #a7a7a7; 
+  box-shadow: 0px 1px 15px 0px #a7a7a7; cursor: pointer;}
+
+
+#grid1 #pic:hover img{transform: rotate(20deg);
+transition: 0.55s ease-in-out;}
+
+#grid1 #pic:hover{transform: translate(0,-10px);
+transition: 0.55s ease-in-out;}
+
+#sec3 h1{font-weight: 700;}
+
+#sec1{height: 90vh;}
+
+.cdr{overflow: hidden;}
+
+.cdr img{transform: scale(1.2); transition: 0.55s ease-in-out;}
+
+.cdr img:hover{transform: scale(1); opacity: 0.9;}
+
+.col:hover img{filter: grayscale(60%); transition: 0.55s ease-in-out;}
+
+#sec6 i{cursor: pointer;}
+
+.col-6 ul li{list-style: none; line-height: 3rem; 
+font-weight: 500;}
+
+.col-6 ul li:hover{cursor: pointer; color: #a7a7a7;}
+
+body{padding-bottom: 30px;}
+
+.mb-3 input:hover, textarea:hover{border: 1px solid red;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
