@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./Untitled-1form.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg bg-dark">
+                <div class="container-fluid">
+                  <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <a class="navbar-brand text-white ms-lg-3 me-lg-5" href="#">SHOP COFFEE</a>
+                  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item p-1">
+                        <a class="nav-link active text-white ms-lg-5 me-lg-3" aria-current="page" href="#">Home</a>
+                      </li>
+                      <li class="nav-item p-1">
+                        <a class="nav-link active text-white ms-lg-3" href="#">About</a>
+                      </li>
+                      <li class="nav-item p-1">
+                        <a class="nav-link active text-white ms-lg-3" href="#">Contact</a>
+                      </li>
+                      <li class="nav-item p-1">
+                        <a class="nav-link active text-white ms-lg-3" href="#">Blogs</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link active text-white ms-lg-3" href="#"><button type="button" class="btn btn-dark position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            <i class="bi bi-bag-heart-fill"></i>
+                            <span class="number position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              0
+                            </span>
+                          </button></a>
+                      </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-danger" type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
+              </nav>            
+<div style="overflow-y: scroll;" class="offcanvas offcanvas-end show text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas-header">
+<h5 class="offcanvas-title" id="offcanvasRightLabel">Shopping Cart</h5>
+<button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body">
+    <div class="offcontent">
+        <h1 class="h3 text-white">Total :</h1>
+    </div>
+</div>
+</div>
+        </header>
+<main>
+<div class="container my-5">
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">More about This Coffee</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h1 class="modaltext h5"></h1>
+        <h5 class="region h6"></h5>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="content"></div>
+</div>
+
+</main>
+
+<style>
+    .content{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        place-content: center;
+        place-items: center;
+        align-items: center;
+    }
+
+    #p , #pp{
+        display: none;
+    }
+   
+    .none{
+      display: none;
+    }
+
+
+
+
+
+</style>
+
+
+
+
+<script>
+
+let container = document.querySelector('.container');
+let content = document.querySelector('.content');
+let result = ``;
+let offcanvs = document.querySelector('.offcontent');
+let cartnumber = document.querySelector('.number');
+let list = ``;
+let modal=``;
+let number = 1;
+let number2 = 0;
+let carttotal = 0;
+
+async function allproducts(){
+try{    
+const response = await fetch(`https://fake-coffee-api.vercel.app/api`)
+const data = await response.json();
+console.log(data)
+for(let i = 0; i < 20; i++){
+result += `
+<div class="card bg-dark" style="width: 20rem;">
+  <img src="${data[i].image_url}" class="card-img-top" alt="...">
+  <div class="card-body text-center">
+    <h5 class="h4 text-white card-title">${data[i].name}</h5><br>
+    <p class="text-danger card-text">Flavor: ${data[i].flavor_profile}</p><br>
+    <p class="h5 text-white">Price :<p class="pp text-white"> ${data[i].price} </p></p><br>
+    <p id="p" class="text-white">Details : ${data[i].description}</p><br>
+    <p id="pp" class="text-white">Region : ${data[i].region}</p><br>
+    <a href="#" class="add btn btn-danger"><i class="bi bi-bag-plus-fill"></i>Add</a>
+    <button class="more btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">More</button>
+  </div>
+</div>
+`
+}
+content.innerHTML = result;
+let cards = document.querySelectorAll('.card');
+cards.forEach(card => {
+    card.addEventListener('click', function(e){
+if(e.target.classList.contains('more')){
+    let text = card.querySelector('#p').textContent;
+    let region = card.querySelector('#pp').textContent;
+    document.querySelector('.modaltext').innerText = text;
+    document.querySelector('.region').innerText = region;}        
+
+if(e.target.classList.contains('add')){   
+let name = card.querySelector('h5').textContent;
+let price = card.querySelector('.pp').textContent;
+let image = card.querySelector('img').src;
+cartnumber.textContent = number;
+number++;
+list+=`
+<div class="item card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="${image}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="cc card-body">
+        <h5 class="card-title">${name}</h5><br>
+        <p class="price h5 card-text">${price}</p><br>
+        <button class="plus btn btn-danger"><i class="bi bi-plus-lg"></i></button>
+        <h2 class="val h5" style="display:inline;">1</h2>
+        <button class="minus btn btn-danger"><i class="bi bi-dash"></i></button> 
+      </div>
+    </div>
+  </div>
+</div>
+`
+offcanvs.innerHTML = list; 
+let total = document.createElement('h3');
+carttotal = carttotal + Number(price);
+console.log(carttotal)
+total.innerText = `Total : ${carttotal}`
+offcanvs.appendChild(total);
+let carts = document.querySelectorAll('.item');
+carts.forEach(cart => {
+let num = cart.querySelector('.val');  
+cart.addEventListener('click', function(s){
+if(s.target.classList.contains('plus')){
+num.innerText++;
+cartnumber.textContent = number;
+number++;
+carttotal = carttotal + Number(cart.querySelector('.price').textContent);
+total.innerText = `Total : ${carttotal}`
+}
+if(s.target.classList.contains('minus')){
+num.innerText--;
+cartnumber.textContent--;
+carttotal = carttotal - Number(cart.querySelector('.price').textContent);
+total.innerText = `Total : ${carttotal}`
+if(num.innerText == 0){
+cart.classList.add('none');
+}
+if(cartnumber.textContent < 0){
+cartnumber.textContent == 0  
+}
+if(cartnumber.textContent == 0){
+total.innerText = `Total : 0`
+}
+}
+})
+})
+}
+})
+})
+
+async function search(){
+
+try{
+let name2 = document.querySelector('.d-flex');
+const response2 = await fetch(`https://fake-coffee-api.vercel.app/api/${name2}`)
+
+console.log(response2)
+
+
+
+
+
+
+
+
+}
+
+catch(error){
+  console.error(error);
+}
+}
+
+search();
+
+}
+
+catch(error){
+    console.error(error)
+}
+}
+
+allproducts()
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
+</html>        
