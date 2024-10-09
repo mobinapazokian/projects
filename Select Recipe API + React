@@ -1,0 +1,134 @@
+import './App.css'
+import 'semantic-ui-css/semantic.min.css'
+import React, { useEffect , useRef, useState} from 'react'
+import { Navigate, useNavigate } from 'react-router-dom';
+
+
+function App() {
+
+useEffect(() => {
+  async function selectrecipe(){
+    try{
+      showrecipebox.classList.add('newheight3');
+  let url = 'https://dummyjson.com/recipes?limit=10&skip=10';
+  let data = await fetch(url , abortcontroller.signal);
+  let respo = await data.json();
+  setrecipe(respo.recipes);
+    } 
+    catch(error){
+  console.error(error);
+    }  
+  }selectrecipe()
+}, []);
+
+async function chooserecipe(event){
+    try{
+  let url = `https://dummyjson.com/recipes/search?q=${event.target.value}`;
+  let data = await fetch(url , abortcontroller.signal);
+  let respo = await data.json();
+  setshowrecipe(respo.recipes);
+  console.log(respo.recipes)
+    }
+    catch(error){
+  console.error(error);
+    }
+}
+
+
+
+return(
+<>
+<div className='container6'>
+<div className='recipecontent'>
+     <h2>Select The Recipes</h2>
+     <select name="recipe"  id="" onChange={chooserecipe}>
+      {recipe.map((item) => 
+      <option key={item.id} value={item.name}>{item.name}</option>
+      )}
+     </select>
+     <div className="showrecipe">
+      {showrecipe.map((item) => 
+      <div key={item.id}>
+      <h5>name : {item.name}</h5>
+      <p>caloriesPerServing : {item.caloriesPerServing}</p>
+      <p>cuisine : {item.cuisine}</p>
+      <p>rating : {item.rating}</p>
+      <ul>
+       ingredients : {item.ingredients}
+      </ul>
+      <br/>
+      <ul>
+      <li>instructions : {item.instructions}</li>
+      </ul><br/>
+      </div>)}
+     </div>
+</div>
+</div>
+</>
+)
+}
+
+export default App
+
+style Css:
+.container6{
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-self: center;
+  place-items: center;
+  place-content: center;
+  text-align: center;
+  background-color: rgb(74, 0, 87);
+}
+
+
+.recipecontent{
+  width: 500px;
+  height: 200px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.recipecontent h2{
+  color: rgb(74, 0, 87);
+  font-size: x-large;
+  font-style: oblique;
+}
+
+.recipecontent h2::after{
+  content: "*";
+  /* background-color: orange; */
+  /* width: 20px;
+  height: 3px; */
+  display: inline-block;
+  color:rgb(74, 0, 87);
+  margin-left: 1px;
+}
+
+.recipecontent h2::before{
+  content: "*";
+  /* background-color: orange;
+  width: 20px;
+  height: 3px; */
+  display: inline-block;
+  color:rgb(74, 0, 87);
+}
+
+
+
+.recipecontent input{
+  width: 60%;
+  outline: 0;
+  background-color: rgb(218, 218, 218);
+  border-radius: 5px;
+  height: 30px;
+  margin: 10px;
+}
+
+.recipecontent input:placeholder-shown{
+  color: rgb(74, 0, 87);
+  padding: 10px; 
+}
+
