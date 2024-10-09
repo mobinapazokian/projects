@@ -1,0 +1,177 @@
+import './App.css'
+import 'semantic-ui-css/semantic.min.css'
+import React, { useEffect , useRef, useState} from 'react'
+import { Navigate, useNavigate } from 'react-router-dom';
+
+
+function App() {
+
+const [todos , settodos] = useState([]);
+const [inputvalue , setinputvalue] = useState('');
+let todocontainer = document.querySelector('.todo');
+let li = document.querySelector('li');
+const liref = useRef();
+
+function inputchange(event){
+     setinputvalue(event.target.value);
+}
+
+function additems(){
+     if(inputvalue !== "" && inputvalue !== null){
+      settodos([...todos , inputvalue]);
+      todocontainer.classList.add('newheight');
+     }else{
+      confirm('You Should enter a valid value') 
+     }
+     setinputvalue('');
+}
+
+
+function removeitem(event){
+    let result = [...todos];
+    console.log(result)
+    result.splice(event , 1)
+    settodos(result)
+}
+ 
+
+function checkitem(event){
+      if(event.target.dataset.key == liref.current.dataset.key){
+        liref.current.style.textDecoration = 'line-through';
+        event.target.setAttribute('disabled', 'disabled')
+    }
+}
+
+
+return(
+<>
+<div className='container1'>
+<div className="todo">
+<div className="content">
+  <h1 className="title">To Do List</h1>  
+</div>  
+  
+<div className="box">
+  <div className="row">
+  <input type="text"placeholder='enter something...' onChange={inputchange}/></div>
+  <button className="ui orange button" onClick={additems}>Add</button>
+</div>  
+
+<div className="result">
+  <ol className='list'>  
+ {todos.map((item) =>
+ <div className='result'>
+ <li key={item}>
+ <div class="ui checkbox"><input type="checkbox" className='checkbox' onChange={checkitem} data-key={item}/><label ref={liref} data-key={item}>{item}</label></div><i onClick={removeitem} aria-hidden="true" class="remove orange icon"></i>
+ </li>
+ </div>
+)}
+  </ol></div>
+</div>  
+</div>
+</>
+)
+}
+
+export default App
+
+style Css:
+.container1{
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(221, 136, 0);
+  display: grid;
+  place-self: center;
+  place-items: center;
+  place-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(500px , 1fr));
+}
+
+.todo{
+  width:500px;
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
+  height: 230px;
+  border-radius: 5px;
+  text-align: center;
+  /* box-shadow: ; */
+  border: 1px solid orange;
+  overflow: auto;
+  font-style: oblique;
+}
+
+.content h1::after{
+  content: "*";
+  /* background-color: orange; */
+  /* width: 20px;
+  height: 3px; */
+  display: inline-block;
+  color: orange;
+  margin-left: 1px;
+}
+
+.content h1::before{
+  content: "*";
+  /* background-color: orange;
+  width: 20px;
+  height: 3px; */
+  display: inline-block;
+  color: orange;
+}
+
+.row{
+  background-color: rgb(238, 238, 238);
+  width: 400px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box{
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+.box input{
+  width: auto;
+  height: 40px;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  background: transparent;
+  z-index: 999;
+  margin-left: 5px;
+}
+
+.box input::placeholder{
+  padding: 0px;
+}
+
+.box input:placeholder-shown{
+  color: orange;
+}
+
+.result{
+  width: auto;
+    display: flex;
+    justify-content: start;
+    margin-left: 15px;
+}
+
+.result .icon{
+  margin-left: 10px;
+}
+
+.result li{
+  border-bottom: 1px solid orange;
+  margin-bottom: 10px;
+}
+
+.newheight{
+  height: 320px;
+}
+
+.completed {
+  text-decoration: line-through;
+}
