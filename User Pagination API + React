@@ -1,0 +1,207 @@
+import './App.css'
+import 'semantic-ui-css/semantic.min.css'
+import React, { useEffect , useRef, useState} from 'react'
+import { Navigate, useNavigate } from 'react-router-dom';
+
+
+function App() {
+
+let list = document.querySelector('.liist');
+let result;
+
+function userlist(limit , skip){
+      userlist(limit , skip);
+}
+   
+async function userlist(limit , skip){
+   try{
+  let url = `https://dummyjson.com/users?limit=${limit}&skip=${skip}`;
+  let respo = await fetch(url);
+  let data = await respo.json();
+  console.log(data.users)
+  for(let i = 0; i < 5; i++){
+  result +=`
+   <li class="table-row">
+      <div class="col col-5" data-label="Image">
+      <img src=${data.users[i].image} />
+      </div>
+      <div class="col col-1" data-label="Id">${data.users[i].id}</div>
+      <div class="col col-2" data-label="Customer Name">${data.users[i].firstName} ${data.users[i].lastName}</div>
+      <div class="col col-3" data-label="Age">${data.users[i].age}</div>
+      <div class="col col-4" data-label="Phone">${data.users[i].phone}</div>
+      <div class="col col-6" data-label="State">${data.users[i].address.state}</div>
+    </li>
+  `
+  }
+  list.innerHTML = result;
+  result = ''
+   }
+   catch(error){
+  console.error(error);
+   }
+}
+
+
+
+return(
+<>
+<div className="container9">
+<div className="users">
+<h2>List Of Users</h2>
+<div className="usertable">
+    <p>click buttons to see our Customers</p>
+    <div class="containertable">
+  <ul class="responsive-table">
+    <li class="table-header">
+    <div class="col col-5">Icon</div>
+      <div class="col col-1">ID</div>
+      <div class="col col-2">Customer <br/> Name</div>
+      <div class="col col-3">Age</div>
+      <div class="col col-4">Phone Number</div>
+      <div class="col col-5">State</div>
+    </li>
+    <div className="liist"></div>
+  </ul>
+</div>
+</div>
+<div className="buttons">
+<button onClick={() => userlist(5, 0)}>1</button>
+<button onClick={() => userlist(5, 5)}>2</button>
+<button onClick={() => userlist(5, 10)}>3</button></div>
+</div>
+</div>
+</>
+)
+}
+
+export default App
+
+style Css:
+ .container9{
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        place-self: center;
+        place-items: center;
+        place-content: center;
+        text-align: center;
+        background-color: rgb(0, 179, 134);
+      }
+      
+      
+      .users{
+        width: 500px;
+        height: 700px;
+        background-color: white;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        place-content: center;
+        text-align: center;
+      }
+  
+      .users h2{
+        color:  rgb(0, 179, 134);
+        font-size: x-large;
+        font-style: oblique;
+      }
+      
+      .users h2::after{
+        content: "*";
+        display: inline-block;
+        color: rgb(0, 179, 134);
+        margin-left: 1px;
+      }
+      
+      .users h2::before{
+        content: "*";
+        display: inline-block;
+        color: rgb(0, 179, 134);
+      }
+  
+  
+      .users button{
+        background-color: rgb(0, 179, 134);
+        color: white;
+        padding: 8px;
+        border-radius: 5px;
+        margin: 5px;
+      }
+      
+      
+
+.containertable {
+  width: 100%;
+  height: 500px;
+  overflow: auto;
+}
+
+h2 {
+  font-size: 26px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.responsive-table {
+  li {
+    border-radius: 3px;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  }
+  .table-header {
+    background-color: #95A5A6;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .table-row {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+  }
+  .col-1 {
+    flex-basis: 10%;
+  }
+  .col-2 {
+    flex-basis: 40%;
+  }
+  .col-3 {
+    flex-basis: 25%;
+  }
+  .col-4 {
+    flex-basis: 25%;
+  }
+
+  .col-5 {
+    flex-basis: 25%;
+  }
+  
+  @media all and (max-width: 767px) {
+    .table-header {
+      display: none;
+    }
+    .table-row{
+      
+    }
+    li {
+      display: block;
+    }
+    .col {
+      
+      flex-basis: 100%;
+      
+    }
+    .col {
+      display: flex;
+      padding: 10px 0;
+      &:before {
+        color: #6C7A89;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: right;
+      }
+    }
+  }
+}
