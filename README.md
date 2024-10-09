@@ -4,4 +4,4 @@
 - 🌱 I’m currently learning React
 - 📫 How to reach me mobinapazokian@gmail.com or Text me on Telegram @mobipz
   
-Html, Css, Bootstrap, JS and React mini projects
+Html, Css, Bootstrap, Tailwind , JS and React mini projects
