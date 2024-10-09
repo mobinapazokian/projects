@@ -1,0 +1,102 @@
+import './App.css'
+import 'semantic-ui-css/semantic.min.css'
+import React, { useEffect , useRef, useState} from 'react'
+import { Navigate, useNavigate } from 'react-router-dom';
+
+
+function App() {
+let ageref = useRef();
+let [userdate , setuserdate] = useState('');
+
+function agecalculate(){
+        //  ageref.time = new Date().toISOString().split('T')[0];
+         let userdate = new Date(ageref.current.value);
+         let y1 = userdate.getFullYear();
+         let m1 = userdate.getMonth() + 1;
+         let d1 = userdate.getDate();
+
+         let today = new Date();
+         let y2 = today.getFullYear();
+         let m2 = today.getMonth() + 1;
+         let d2 = today.getDate();
+         setuserdate(`You Are : ${(y2 - y1)} Years _ ${(m2 - m1)} Months _ ${d1 - d2} Days Years Old`)
+}
+
+return(
+<>
+<div className="container3">
+<div className="agecontent">
+<h2>JavaScript Age Calculator</h2>
+<input type="date" ref={ageref}/> <button onClick={agecalculate}>Calculate</button>
+<p className='birth'>{userdate}</p>
+</div>
+</div>
+</>
+)
+}
+export default App
+
+style Css:
+.container3{
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(92, 0, 0);
+  display: grid;
+  place-self: center;
+  place-items: center;
+  place-content: center;
+  text-align: center;
+}
+
+
+.agecontent{
+  background-color: white;
+  width: 500px;
+  height: 200px;
+  border-radius: 8px;
+  color: rgb(92, 0, 0);
+}
+
+
+.agecontent h2{
+  font-style: oblique;
+  padding: 15px;
+}
+
+.agecontent h2::after{
+  content: "*";
+  /* background-color: orange; */
+  /* width: 20px;
+  height: 3px; */
+  display: inline-block;
+  color:rgb(92, 0, 0);
+  margin-left: 1px;
+}
+
+.agecontent h2::before{
+  content: "*";
+  /* background-color: orange;
+  width: 20px;
+  height: 3px; */
+  display: inline-block;
+  color: rgb(92, 0, 0);
+}
+
+.agecontent button{
+  background-color: rgb(92, 0, 0);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.agecontent input{
+  border: 1px solid rgb(92, 0, 0);
+  width: 50%;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+
+.birth{
+  margin-top: 20px;
+}
